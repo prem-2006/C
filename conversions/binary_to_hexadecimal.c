@@ -1,21 +1,29 @@
-/*
- * C Program to Convert Binary to Hexadecimal
- */
 #include <stdio.h>
+#include <string.h>
+#include <math.h>
 
-int main()
+int main(void)
 {
-    long int binary, hexa = 0, i = 1, remainder;
+    char binary[65];   // up to 64 bits
+    long decimal = 0;
+    int i, len;
 
-    printf("Enter the binary number: ");
-    scanf("%ld", &binary);
-    while (binary != 0)
-    {
-        remainder = binary % 10;
-        hexa = hexa + remainder * i;
-        i = i * 2;
-        binary = binary / 10;
+    printf("Enter a binary number: ");
+    scanf("%64s", binary);  // read as string (safer)
+
+    len = strlen(binary);
+
+    // Validate and convert binary → decimal
+    for (i = 0; i < len; i++) {
+        if (binary[i] != '0' && binary[i] != '1') {
+            printf("Invalid binary number!\n");
+            return 1;
+        }
+        decimal = decimal * 2 + (binary[i] - '0');
     }
-    printf("The equivalent hexadecimal value: %lX", hexa);
+
+    // Print as hexadecimal
+    printf("Equivalent hexadecimal value: %lX\n", decimal);
+
     return 0;
 }
